@@ -32,7 +32,8 @@ else
         [yY][eE][sS]|[yY])
             echo "creating the 'frames' dir"
             mkdir -p $1/frames
-            rm -f $1/frames/*.jpg
+            rm -rf $1/frames
+            mkdir -p $1/frames
             python ../tools/extract_frames.py \
                    --video_in $1/video.mp4 \
                    --path_out $1/frames
@@ -59,8 +60,8 @@ else
         [yY][eE][sS]|[yY])
             echo "creating the 'good' dir copying the frame folder"
             rm -rf $1/good
-            mkdir -p $1/good
-            cp $1/frames/* $1/good
+            #mkdir -p $1/good
+            cp -r $1/frames $1/good
             ;;
         *)
             echo "keeping 'good' folder"
@@ -151,7 +152,7 @@ else
                    --path_left $1/frames \
                    --path_right $1/good \
                    --path_out $1/train \
-                   --limit 1000
+                   --limit 10000
 # 1000 is the default value, you can play with it and will get diferents results
         echo "training $i/$2"
         # main.py belongs to the pix2ix_tensorflow package
